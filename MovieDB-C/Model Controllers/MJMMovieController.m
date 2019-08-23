@@ -53,4 +53,35 @@ static NSString * const searchKey = @"query";
         completion(movies);
     }]resume];
 }
+
++ (void)fetchImageForMovie:(MJMMovie *)movie completion:(void (^)(UIImage * _Nullable))completion
+{
+    NSURL *baseURL = [NSURL URLWithString:@"http://image.tmdb.org/t/p/w500"];
+    if (movie.imageURL == [NSNull null]) {
+        completion(nil);
+        return;
+    }
+    NSURL *imageURL = [baseURL URLByAppendingPathComponent:movie.imageURL];
+    NSLog(@"%@", imageURL);
+    
+    [[[NSURLSession sharedSession]dataTaskWithURL:imageURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error)
+        {
+            NSLog(@"%@: %@", error, error.localizedDescription);
+            completion(nil);
+            return;
+        }
+        
+        if (!data)
+        {
+            NSLog(@"%@: No data was returned. %@", error, error.localizedDescription);
+            completion(nil);
+            return;
+        }
+        
+        UIImage *image = [UIImage imageWithData:data];
+        completion(image);
+        return;
+    }]resume];
+}
 @end

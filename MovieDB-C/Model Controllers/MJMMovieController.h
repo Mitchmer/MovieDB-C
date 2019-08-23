@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MJMMovieController : NSObject
 
 + (void) fetchMoviesWithTitle:(NSString *)searchTerm completion:(void (^)(NSArray<MJMMovie *> *))completion;
-+ (void) fetchImageForMovie:(MJMMovie *)movie completion:(void (^)(UIImage *))completion;
++ (void) fetchImageForMovie:(MJMMovie * _Nullable)movie completion:(void (^)(UIImage * _Nullable))completion;
 
 @end
 

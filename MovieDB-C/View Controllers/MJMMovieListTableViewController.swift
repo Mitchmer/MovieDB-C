@@ -24,6 +24,10 @@ class MJMMovieListTableViewController: UITableViewController, UISearchBarDelegat
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! MJMMovieTableViewCell
@@ -42,6 +46,7 @@ class MJMMovieListTableViewController: UITableViewController, UISearchBarDelegat
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+            
         }
     }
 
